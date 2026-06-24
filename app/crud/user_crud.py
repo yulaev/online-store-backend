@@ -41,7 +41,7 @@ def sing_in(data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     
 def edit_user(token: Annotated[str, Depends(oauth2_scheme)], edit_body: UserEdit, id: int):
     with get_session() as session:
-        payload = validate_token(token=token)
+        payload = validate_token(token)
         user = session.get(User, id)
         if payload.get("sub") != user.name:
             raise HTTPException(status_code=403, detail="You are forbidden from performing this operation")
@@ -52,3 +52,12 @@ def edit_user(token: Annotated[str, Depends(oauth2_scheme)], edit_body: UserEdit
 
         session.commit()
 
+def delete_user(token: Annotated[str, Depends(oauth2_scheme)], id: int):
+    with get_session() as session:
+        payload = validate_token(token)
+        user = session.get(User, id)
+        if payload.get("sub") != user.name:
+            raise HTTPException(status_code=403, detail="You are forbidden from performing this operation")
+        
+        session.delete(user)
+        session.commit()

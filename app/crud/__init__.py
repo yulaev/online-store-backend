@@ -1,1 +1,1 @@
-from .user_crud import sign_up, sing_in, edit_user
+from .user_crud import sign_up, sing_in, edit_user, delete_user
