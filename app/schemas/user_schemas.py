@@ -19,4 +19,3 @@ class UserEdit(BaseModel):
     name: str | None = None
     password: str | None = None
     email: str | None = None
-    role: UserRole | None = None

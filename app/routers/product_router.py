@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse
+from app.crud import list_product, edit_product, delete_product, get_product
+from app.schemas import ProductCreate, ProductEdit
 
 
 from typing import Annotated
@@ -10,3 +12,23 @@ router = APIRouter(
     prefix="/products",
     tags=["products"]
 )
+
+@router.post("/list-a-product")
+async def list_product_r(data: ProductCreate, token: Annotated[str, Depends(oauth2_scheme)]):
+    list_product(data, token)
+    return JSONResponse(status_code=201, content={"message": "Product succesfully listed"})
+
+@router.patch("/edit-listing")
+async def edit_product_r(token: Annotated[str, Depends(oauth2_scheme)], edit_body: ProductEdit, id: int):
+    edit_product(token, edit_body, id)
+    return JSONResponse(status_code=200, content={"message": "Listing succesfully edited"})
+
+@router.delete("/delete-listing")
+async def delete_product_r(token: Annotated[str, Depends(oauth2_scheme)], id: int):
+    delete_product(token, id)
+    return JSONResponse(status_code=200, content={"message": "Listing deleted succesfully"})
+
+@router.get("/{id}")
+async def get_product_r(id: int):
+    product = get_product(id)
+    return product

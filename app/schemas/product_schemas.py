@@ -3,7 +3,7 @@ from decimal import Decimal
 
 class ProductCreate(BaseModel):
     name: str
-    description: str
+    description: str | None = None
     price: Decimal
     quantity: int = 1
 

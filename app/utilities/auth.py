@@ -13,7 +13,7 @@ from jwt.exceptions import InvalidTokenError
 load_dotenv()
 
 HASHING_ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/sign-in")
