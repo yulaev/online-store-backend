@@ -25,6 +25,7 @@ class Order(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     customer_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    status: Mapped[OrderStatus] = mapped_column(Enum(OrderStatus))
 
     def __repr__(self):
         return f"ID:{self.id}, DATE:{self.order_date}, ORDERED BY:{self.customer_id}"

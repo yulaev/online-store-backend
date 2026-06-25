@@ -63,4 +63,7 @@ def delete_product(token: Annotated[str, Depends(oauth2_scheme)], id: int):
 
 def get_product(id: int):
     with get_session() as session:
-        return session.get(Product, id)
+        product = session.get(Product, id)
+        if not product:
+            raise HTTPException(status_code=404, detail="Listing not found")
+        return product

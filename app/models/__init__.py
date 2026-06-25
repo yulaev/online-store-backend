@@ -1,5 +1,5 @@
 from .user import User, UserRole
 from .product import Product
-from .order import Order, OrderItem
+from .order import Order, OrderItem, OrderStatus
 from .base import Base
 

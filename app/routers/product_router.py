@@ -1,10 +1,7 @@
 from fastapi import APIRouter, Depends
-from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse
 from app.crud import list_product, edit_product, delete_product, get_product
 from app.schemas import ProductCreate, ProductEdit
-
-
 from typing import Annotated
 from app.utilities import oauth2_scheme
 
